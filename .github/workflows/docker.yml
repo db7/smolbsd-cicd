@@ -32,13 +32,10 @@ jobs:
       - name: Create image
         run: |
           cd smolBSD
-          sudo ./mkimg.sh -s base -i smolbsd.img    \
+          sudo ADDPKGS=../pkgsrc/downloads/*.tgz       \
+               ./mkimg.sh -s base -i smolbsd.img       \
                -x "base.tar.xz etc.tar.xz comp.tar.xz" \
                -m 2048
-      - name: Untar packages
-        run: |
-          sudo scripts/untar2img.sh -i smolBSD/smolbsd.img \
-               pkgsrc/downloads/*.tgz
       - name: Save image
         uses: actions/upload-artifact@v4
         with:
