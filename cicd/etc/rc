@@ -1,0 +1,20 @@
+#!/bin/sh
+
+hostname cicd
+. /etc/include/basicrc
+. /etc/include/choupi
+
+if mount_msdos /dev/ld1 /mnt; then
+	echo -e "${CHECK} mounted FAT payload in /mnt"
+else
+	echo -e "${WARN} no payload filesystem"
+fi
+
+if [ -f /mnt/run.sh ]; then
+	sh /mnt/run.sh
+else
+	ksh
+fi
+
+. /etc/include/shutdown
+
