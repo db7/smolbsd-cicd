@@ -5,17 +5,17 @@ RUN apt update           \
 &&  apt install -y       \
         build-essential  \
         curl             \
-	git              \
-	libarchive-tools \
+        git              \
+        libarchive-tools \
         qemu-system      \
-	rsync            \
-	mtools		 \
-	uuid-runtime
+        rsync            \
+        mtools           \
+        dosfstools       \
+        bmake            \
+        uuid-runtime
 
 # add scripts and smolBSD image
 RUN mkdir -p /data
-COPY scripts/ /data/scripts/
-RUN cd /data && scripts/get_smolBSD.sh
-COPY smolbsd.img /data/smolBSD
-
+COPY smolBSD /smolBSD
+RUN find /smolBSD -name '*.sh' -exec chmod +x {} +
 WORKDIR /work
