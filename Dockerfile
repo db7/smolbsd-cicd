@@ -9,6 +9,7 @@ RUN apt update           \
 	libarchive-tools \
         qemu-system      \
 	rsync            \
+	mtools		 \
 	uuid-runtime
 
 # add scripts and smolBSD image
