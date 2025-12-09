@@ -14,8 +14,5 @@ RUN apt update           \
 
 # add scripts and smolBSD image
 RUN mkdir -p /data
-COPY scripts/ /data/scripts/
-RUN cd /data && scripts/get_smolBSD.sh
-COPY smolbsd.img /data/smolBSD
-
+RUN scripts/create-smolbsd.sh cicd /data/smolBSD
 WORKDIR /work
