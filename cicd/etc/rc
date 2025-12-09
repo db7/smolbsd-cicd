@@ -5,9 +5,9 @@ hostname cicd
 . /etc/include/choupi
 
 if mount_msdos /dev/ld1 /mnt; then
-	echo -e "${CHECK} mounted FAT payload in /mnt"
+	echo -e "${CHECK} mounted FAT filesystem in /mnt"
 else
-	echo -e "${WARN} no payload filesystem"
+	echo -e "${WARN} no extra filesystem mounted"
 fi
 
 if [ -f /mnt/run.sh ]; then
@@ -16,5 +16,12 @@ else
 	ksh
 fi
 
-. /etc/include/shutdown
-
+# When done with the work, we would like to terminate the machine and not
+# reboot it. If we shutdown here using the folling line, QEMU does not seem to
+# return to the prompt.
+# . /etc/include/shutdown
+#
+# So instead of using shutdown, we reboot the machine and ensure that QEMU
+# receives the option -no-reboot when started. In this way, the reboot will
+# cause QEMU to terminate.
+reboot
